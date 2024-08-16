@@ -9,7 +9,7 @@
 source("/ProteinUtil/Base/BaseLog.R")
 source("/ProteinUtil/Plot/PlotBase.R")
 # load custome ggvenn r package
-install.packages("/root/ppbria/r_package/ggvenn/ggvenn_0.1.10.tar.gz", repos = NULL, type = "source")
+install.packages("/ProteinUtil/RPackage/ggvenn/ggvenn_0.1.10.tar.gz", repos = NULL, type = "source")
 
 
 #' # Function to draw a Venn diagram and save it to a file.
@@ -92,8 +92,13 @@ DrawVennPlot <- function(inputDataFrame, outputFileName, logObject = NULL) {
 }
 
 
-# Demo code
-Demo <- function(){
+#' # Venn diagram demo
+#' 
+#' This function demonstrates how to use the DrawVennPlot function to create a Venn diagram from a data frame of set elements.
+#' 
+#' @examples
+#' VennDiagramDemo()
+VennDiagramDemo <- function(){
 	
 	# Example data frame
 	inputDataFrame <- data.frame(
@@ -102,8 +107,17 @@ Demo <- function(){
 		Set3 = c("A", "E", "F", NA)
 	)
 
+    # Define the output directory
+    demoPath <- "/ProteinUtil/Demo/VennDemo"
+    # Create the output directory if it does not exist
+    if (!dir.exists(demoPath)) {
+        dir.create(demoPath, recursive = TRUE)
+    }
+
+    logObject <- GetLogger(glue::glue("{demoPath}/_DrawVennPlotDemo.log"), consoleOutput = TRUE, fileOutput = TRUE)
+
 	# Draw Venn diagram and get the result
-	result <- DrawVennPlot(inputDataFrame, "/data/test")
+	result <- DrawVennPlot(inputDataFrame, glue::glue("{demoPath}/VennDiagram"), logObject)
 
 	# Print the output data frame
 	print(result$DataFrame)
