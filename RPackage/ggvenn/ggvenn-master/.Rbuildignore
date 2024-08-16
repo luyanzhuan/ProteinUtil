@@ -1,0 +1,7 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+LICENSE.md
+plots
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
